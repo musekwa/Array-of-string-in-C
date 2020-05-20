@@ -10,11 +10,11 @@ Write your code in this editor and press "Run" button to compile and execute it.
 #include <stdlib.h>
 #include <string.h>
 
-void imprimeTodosNomes(char **nomes){
+void imprimeTodosNomes(char **nomes, int tamanho){
   int i = 0;
    printf("\n===========================================================\n\n");
   printf("\nTodos os nomes introduzidos sao...\n");
-  while (nomes[i] != NULL){
+  while (i < tamanho){
     printf ("%s  ", nomes[i]);
     i++;
   }
@@ -23,12 +23,12 @@ void imprimeTodosNomes(char **nomes){
   }
 }
 
-void imprimeNomesComAS(char **nomes){
+void imprimeNomesComAS(char **nomes, int tamanho){
   int i = 0;
   int contador = 0;
    printf("\n===========================================================\n\n");
   printf("\nOs nomes que contem a sequencia de letras \'as\' sao...\n");
-  while (nomes[i] != NULL){
+  while (i < tamanho){
     if (strlen(nomes[i]) >= 2){    
       char a, s;
       for(int j = 1; j <= strlen(nomes[i]); j++){
@@ -48,11 +48,11 @@ void imprimeNomesComAS(char **nomes){
 }
 
 void criaListaDeNomes(){
-  int count = 1;
   int it = 0;
   int size = 2;
   char **nomes;
   char **tmp;
+  int contador = 0;
   nomes = malloc(sizeof(char*)*size);
   int length = sizeof(nomes);
   printf("\n===========================================================\n\n");
@@ -65,19 +65,18 @@ void criaListaDeNomes(){
       break;
     }
     strcpy(nomes[it], aux);
-    
     tmp = malloc(sizeof(char*)*size);
     memcpy(tmp, nomes, sizeof(nomes)+sizeof(char*)*it);
     free(nomes);
-    count++;
+    contador++;
     size++;
     it++;
     nomes = tmp;
     tmp = NULL;
   }
   
-  imprimeTodosNomes(nomes);
-  imprimeNomesComAS(nomes);
+  imprimeTodosNomes(nomes, contador);
+  imprimeNomesComAS(nomes, contador);
 }
 
 
